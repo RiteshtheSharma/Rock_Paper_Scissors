@@ -1,4 +1,9 @@
 // notation make all inputs lower case and computer/program 's input
+/* Game class 's gameStatus member can have 4 values :
+null(game in initial stage not played or reinitialized) 
+ -1 game lost
+ 0 draw
+ 1 won */
 
 // toolBox to run game and know its condition using its methods
 class Game {
@@ -52,7 +57,7 @@ class UserGameInterface {
   setTimesPlay(times_play) {
     UserGameInterface.#times_play = times_play;
   }
-  setInitialState(){
+  setToInitialState(){
     UserGameInterface.times_draw=0;
     UserGameInterface.times_loose=0;
     UserGameInterface.times_play=0;
