@@ -66,10 +66,10 @@ class UserGameInterface {
     UserGameInterface.#times_play = times_play;
   }
   setToInitialState() {
-    UserGameInterface.times_draw = 0;
-    UserGameInterface.times_loose = 0;
-    UserGameInterface.times_play = 0;
-    UserGameInterface.times_won = 0;
+    UserGameInterface.#times_draw = 0;
+    UserGameInterface.#times_loose = 0;
+    UserGameInterface.#times_play = 0;
+    UserGameInterface.#times_won = 0;
     UserGameInterface.#gameStatusArray = [];
     UserGameInterface.#GAME_ALGO.setToInitialState();
   }
@@ -110,13 +110,12 @@ class UserGameInterface {
 }
 
 
-// below is a testing code not relevant 
+//code which will integrate UserGameInterface class object to html and make it interactive interface of game 
 // IIFEs to run game: https://www.javascripttutorial.net/javascript-immediately-invoked-function-expression-iife/
 (() => {
     
   const VirtualGamingConsole = new UserGameInterface();
-  let InfiniteNO = 5/0;
-  VirtualGamingConsole.setTimesPlay(InfiniteNO);
-
+  
+  
  
 })();
