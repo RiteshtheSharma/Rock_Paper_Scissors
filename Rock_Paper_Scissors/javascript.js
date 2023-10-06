@@ -60,15 +60,15 @@ class UserGameInterface {
   static #times_won = 0;
   static #times_loose = 0;
   static #times_draw = 0;
-  static #times_play = 0;
+  static #max_times_won_or_loose = 0;
   static #gameStatusArray = [];
-  setTimesPlay(times_play) {
-    UserGameInterface.#times_play = times_play;
+  setMaxTimesWonOrLoose(max_times_won_or_loose) {
+    UserGameInterface.#max_times_won_or_loose = max_times_won_or_loose;
   }
   setToInitialState() {
     UserGameInterface.#times_draw = 0;
     UserGameInterface.#times_loose = 0;
-    UserGameInterface.#times_play = 0;
+    UserGameInterface.#max_times_won_or_loose = 0;
     UserGameInterface.#times_won = 0;
     UserGameInterface.#gameStatusArray = [];
     UserGameInterface.#GAME_ALGO.setToInitialState();
@@ -76,7 +76,7 @@ class UserGameInterface {
   playOneTime(userChoice) {
     if (!UserGameInterface.#GAME_ALGO.getChoices_.includes(userChoice.toString()))
       return null;
-    if (UserGameInterface.#times_play === 0) return "No more chances";
+    if (UserGameInterface.#max_times_won_or_loose === UserGameInterface.#times_loose || UserGameInterface.#max_times_won_or_loose ===UserGameInterface.#times_won) return "No more chances";
     let gameStatus, gameStatusMsg;
 
     UserGameInterface.#GAME_ALGO.DecideWinner(userChoice);
@@ -86,7 +86,7 @@ class UserGameInterface {
     else if (gameStatus === -1) UserGameInterface.#times_loose++;
     else UserGameInterface.#times_won++;
     UserGameInterface.#gameStatusArray.push(gameStatusMsg);
-    UserGameInterface.#times_play--;
+    UserGameInterface.#max_times_won_or_loose--;
     return gameStatus;
   }
 
@@ -115,6 +115,7 @@ class UserGameInterface {
 (() => {
     
   const VirtualGamingConsole = new UserGameInterface();
+  VirtualGamingConsole.setMaxTimesWonOrLoose(5);
   
   
  
