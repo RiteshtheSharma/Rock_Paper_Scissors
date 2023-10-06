@@ -47,13 +47,19 @@ class UserGameInterface {
   static #times_won = 0;
   static #times_loose = 0;
   static #times_draw = 0;
-  static #userChoice;
-  static #times_play;
+  static #times_play=0;
   static #gameStatusArray = [];
   setTimesPlay(times_play) {
     UserGameInterface.#times_play = times_play;
   }
+  setInitialState(){
+    UserGameInterface.times_draw=0;
+    UserGameInterface.times_loose=0;
+    UserGameInterface.times_play=0;
+    UserGameInterface.times_won=0;
 
+
+  }
   playOneTime(userChoice) {
     if( !UserGameInterface.#GAME_ALGO.includes(userChoice.toString()))
            return null;
