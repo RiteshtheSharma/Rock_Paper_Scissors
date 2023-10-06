@@ -21,14 +21,18 @@ class Game {
     let compChoice = Game.#CHOICES[index];
     return compChoice;
   }
-
+  
   DecideWinner(playerSelection) {
     playerSelection = playerSelection.toLowerCase();
     const computerSelection = this.fetchComputerChoice();
     if (playerSelection === computerSelection) {
       this.#gamestatusMsg = `Its draw ! for ${playerSelection}`;
       this.#gameStatus = 0;
-    } else if (
+    } 
+    
+    
+    
+    else if (
       Game.#CHOICES[(Game.#CHOICES.indexOf(playerSelection) + 1) % 3] ===
       computerSelection
     ) {
@@ -70,7 +74,7 @@ class UserGameInterface {
     UserGameInterface.#GAME_ALGO.setToInitialState();
   }
   playOneTime(userChoice) {
-    if (!UserGameInterface.#GAME_ALGO.includes(userChoice.toString()))
+    if (!UserGameInterface.#GAME_ALGO.getChoices_.includes(userChoice.toString()))
       return null;
     if (UserGameInterface.#times_play === 0) return "No more chances";
     let gameStatus, gameStatusMsg;
@@ -87,17 +91,26 @@ class UserGameInterface {
   }
 
   get getDetailedGameReport() {
-    return UserGameInterface.#gameStatusArray;
+    return UserGameInterface.#gameStatusArray.join('\n\n');
   }
   Result() {
     return `times won ${UserGameInterface.#times_won}, times loose ${
       UserGameInterface.#times_loose
-    } , times draw ${UserGameInterface.times_draw}`;
+    } , times draw ${UserGameInterface.#times_draw}`;
   }
 }
 
+
+// below is a testing code not relevant 
 // IIFEs to run game: https://www.javascripttutorial.net/javascript-immediately-invoked-function-expression-iife/
-() => {
+(() => {
+    
   const VirtualGamingConsole = new UserGameInterface();
-  VirtualGamingConsole.staticConstructor(5);
-};
+  VirtualGamingConsole.setTimesPlay(5);
+  let response = VirtualGamingConsole.playOneTime(prompt("enter among Rock, Paper or scissors",''));
+  while(response!=="No more chances"){
+    response = VirtualGamingConsole.playOneTime(prompt("enter among Rock, Paper or scissors",''));
+  }
+  console.log(VirtualGamingConsole.getDetailedGameReport);
+  console.log(VirtualGamingConsole.Result());
+})();
