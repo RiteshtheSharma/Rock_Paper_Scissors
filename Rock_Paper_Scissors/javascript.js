@@ -75,7 +75,7 @@ class UserGameInterface {
     if (UserGameInterface.#times_play === 0) return "No more chances";
     let gameStatus, gameStatusMsg;
 
-    GAME_ALGO.DecideWinner(userChoice);
+    UserGameInterface.#GAME_ALGO.DecideWinner(userChoice);
     gameStatus = UserGameInterface.#GAME_ALGO.getGame_Status;
     gameStatusMsg = UserGameInterface.#GAME_ALGO.getGame_Status_Msg;
     if (gameStatus === 0) UserGameInterface.#times_draw++;
