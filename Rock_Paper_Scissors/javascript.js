@@ -11,6 +11,10 @@ class Game {
   #gameStatus = null;
   #gamestatusMsg = "Game is not started";
   constructor() {}
+  setToInitialState() {
+    this.#gameStatus = null;
+    this.#gamestatusMsg = "Game is not started";
+  }
   // private method plz don 't use it outside this class
   fetchComputerChoice() {
     let index = parseInt(Math.random() * 3);
@@ -52,24 +56,23 @@ class UserGameInterface {
   static #times_won = 0;
   static #times_loose = 0;
   static #times_draw = 0;
-  static #times_play=0;
+  static #times_play = 0;
   static #gameStatusArray = [];
   setTimesPlay(times_play) {
     UserGameInterface.#times_play = times_play;
   }
-  setToInitialState(){
-    UserGameInterface.times_draw=0;
-    UserGameInterface.times_loose=0;
-    UserGameInterface.times_play=0;
-    UserGameInterface.times_won=0;
-    UserGameInterface.#gameStatusArray=[]
-
+  setToInitialState() {
+    UserGameInterface.times_draw = 0;
+    UserGameInterface.times_loose = 0;
+    UserGameInterface.times_play = 0;
+    UserGameInterface.times_won = 0;
+    UserGameInterface.#gameStatusArray = [];
+    UserGameInterface.GAME_ALGO.setToInitialState();
   }
   playOneTime(userChoice) {
-    if( !UserGameInterface.#GAME_ALGO.includes(userChoice.toString()))
-           return null;
-    if(UserGameInterface.#times_play===0 )
-         return 'No more chances'
+    if (!UserGameInterface.#GAME_ALGO.includes(userChoice.toString()))
+      return null;
+    if (UserGameInterface.#times_play === 0) return "No more chances";
     let gameStatus, gameStatusMsg;
 
     GAME_ALGO.DecideWinner(userChoice);
@@ -82,7 +85,7 @@ class UserGameInterface {
     UserGameInterface.#times_play--;
     return gameStatus;
   }
-  
+
   get getDetailedGameReport() {
     return UserGameInterface.#gameStatusArray;
   }
