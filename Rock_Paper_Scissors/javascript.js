@@ -23,9 +23,9 @@ this.#gameStatus=-1}
 else  { this.#gameStatus=1;this.#gamestatusMsg= `You won ! for ${playerSelection} against ${computerSelection}`;}
 }  
 
-get game_Status(){return this.#gameStatus}
-get game_Status_Msg(){return this.#gamestatusMsg}
-get choices_(){return Game.#CHOICES}
+get getGame_Status(){return this.#gameStatus}
+get getGame_Status_Msg(){return this.#gamestatusMsg}
+get getChoices_(){return Game.#CHOICES.toString()}
 } 
 // Class to use as an interface so user can play game using its object
 class  UserGameInterface{
@@ -42,19 +42,20 @@ staticConstructor(times_play){
 }
 
 PlayGame(userChoice){let gameStatus,gameStatusMsg;
-    if(typeof(userChoice) !=='string' || userChoice.length)
+
+     
     for(let i=0;i<UserGameInterface.times_play;i++){
         
         GAME_ALGO.DecideWinner(userChoice);
-        gameStatus = GAME_ALGO.game_Status;
-        gameStatusMsg = GAME_ALGO.game_Status_Msg; 
+        gameStatus = GAME_ALGO.getGame_Status;
+        gameStatusMsg = GAME_ALGO.getGame_Status_Msg; 
         if(gameStatus===0)UserGameInterface.times_draw++;
         else if(gameStatus===-1)UserGameInterface.times_loose++;
         else UserGameInterface.times_won++;
         UserGameInterface.#gameStatusArray.push(gameStatusMsg);
     }
 }
-get detailedGameReport(){
+get getDetailedGameReport(){
     return UserGameInterface.#gameStatusArray;
 }
 Result(){
@@ -63,5 +64,10 @@ Result(){
 }
 }
 
+// IIFEs to run game: https://www.javascripttutorial.net/javascript-immediately-invoked-function-expression-iife/
+()=>{  const VirtualGamingConsole = new UserGameInterface();
+    VirtualGamingConsole.staticConstructor(5);
+   let userChoice= prompt(' Enter your choice here among rock, paper and scissors ',''); 
 
+  }
 
