@@ -93,6 +93,15 @@ class UserGameInterface {
   get getDetailedGameReport() {
     return UserGameInterface.#gameStatusArray.join('\n\n');
   }
+  get getTimesloose(){
+    return UserGameInterface.#times_loose;
+  }
+  get getTimesWin(){
+    return UserGameInterface.#times_won;
+  }
+  get getTimesDraw(){
+    return UserGameInterface.#times_draw;
+  }
   Result() {
     return `times won ${UserGameInterface.#times_won}, times loose ${
       UserGameInterface.#times_loose
@@ -106,6 +115,8 @@ class UserGameInterface {
 (() => {
     
   const VirtualGamingConsole = new UserGameInterface();
-  VirtualGamingConsole.setTimesPlay(5);
+  let InfiniteNO = 5/0;
+  VirtualGamingConsole.setTimesPlay(InfiniteNO);
+
  
 })();
