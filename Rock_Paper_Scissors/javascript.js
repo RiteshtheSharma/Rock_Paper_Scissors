@@ -67,7 +67,7 @@ class UserGameInterface {
     UserGameInterface.times_play = 0;
     UserGameInterface.times_won = 0;
     UserGameInterface.#gameStatusArray = [];
-    UserGameInterface.GAME_ALGO.setToInitialState();
+    UserGameInterface.#GAME_ALGO.setToInitialState();
   }
   playOneTime(userChoice) {
     if (!UserGameInterface.#GAME_ALGO.includes(userChoice.toString()))
