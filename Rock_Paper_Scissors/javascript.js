@@ -50,23 +50,28 @@ class UserGameInterface {
   static #userChoice;
   static #times_play;
   static #gameStatusArray = [];
-  staticConstructor(times_play) {
-    UserGameInterface.times_play = times_play;
+  setTimesPlay(times_play) {
+    UserGameInterface.#times_play = times_play;
   }
 
-  PlayGame(userChoice) {
+  playOneTime(userChoice) {
+    if( !UserGameInterface.#GAME_ALGO.includes(userChoice.toString()))
+           return null;
+    if(UserGameInterface.#times_play===0 )
+         return 'No more chances'
     let gameStatus, gameStatusMsg;
 
-    for (let i = 0; i < UserGameInterface.times_play; i++) {
-      GAME_ALGO.DecideWinner(userChoice);
-      gameStatus = GAME_ALGO.getGame_Status;
-      gameStatusMsg = GAME_ALGO.getGame_Status_Msg;
-      if (gameStatus === 0) UserGameInterface.times_draw++;
-      else if (gameStatus === -1) UserGameInterface.times_loose++;
-      else UserGameInterface.times_won++;
-      UserGameInterface.#gameStatusArray.push(gameStatusMsg);
-    }
+    GAME_ALGO.DecideWinner(userChoice);
+    gameStatus = GAME_ALGO.getGame_Status;
+    gameStatusMsg = GAME_ALGO.getGame_Status_Msg;
+    if (gameStatus === 0) UserGameInterface.times_draw++;
+    else if (gameStatus === -1) UserGameInterface.times_loose++;
+    else UserGameInterface.times_won++;
+    UserGameInterface.#gameStatusArray.push(gameStatusMsg);
+    UserGameInterface.#times_play--;
+    return gameStatus;
   }
+  
   get getDetailedGameReport() {
     return UserGameInterface.#gameStatusArray;
   }
@@ -81,8 +86,4 @@ class UserGameInterface {
 () => {
   const VirtualGamingConsole = new UserGameInterface();
   VirtualGamingConsole.staticConstructor(5);
-  let userChoice = prompt(
-    " Enter your choice here among rock, paper and scissors ",
-    ""
-  );
 };
