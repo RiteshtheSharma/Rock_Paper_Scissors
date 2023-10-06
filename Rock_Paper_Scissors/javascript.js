@@ -76,11 +76,11 @@ class UserGameInterface {
     let gameStatus, gameStatusMsg;
 
     GAME_ALGO.DecideWinner(userChoice);
-    gameStatus = GAME_ALGO.getGame_Status;
-    gameStatusMsg = GAME_ALGO.getGame_Status_Msg;
-    if (gameStatus === 0) UserGameInterface.times_draw++;
-    else if (gameStatus === -1) UserGameInterface.times_loose++;
-    else UserGameInterface.times_won++;
+    gameStatus = UserGameInterface.#GAME_ALGO.getGame_Status;
+    gameStatusMsg = UserGameInterface.#GAME_ALGO.getGame_Status_Msg;
+    if (gameStatus === 0) UserGameInterface.#times_draw++;
+    else if (gameStatus === -1) UserGameInterface.#times_loose++;
+    else UserGameInterface.#times_won++;
     UserGameInterface.#gameStatusArray.push(gameStatusMsg);
     UserGameInterface.#times_play--;
     return gameStatus;
