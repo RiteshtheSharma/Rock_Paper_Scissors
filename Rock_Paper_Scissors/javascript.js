@@ -57,7 +57,7 @@ class UserGameInterface {
     UserGameInterface.times_loose=0;
     UserGameInterface.times_play=0;
     UserGameInterface.times_won=0;
-
+    UserGameInterface.#gameStatusArray=[]
 
   }
   playOneTime(userChoice) {
