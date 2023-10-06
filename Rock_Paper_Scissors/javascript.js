@@ -107,10 +107,5 @@ class UserGameInterface {
     
   const VirtualGamingConsole = new UserGameInterface();
   VirtualGamingConsole.setTimesPlay(5);
-  let response = VirtualGamingConsole.playOneTime(prompt("enter among Rock, Paper or scissors",''));
-  while(response!=="No more chances"){
-    response = VirtualGamingConsole.playOneTime(prompt("enter among Rock, Paper or scissors",''));
-  }
-  console.log(VirtualGamingConsole.getDetailedGameReport);
-  console.log(VirtualGamingConsole.Result());
+ 
 })();
