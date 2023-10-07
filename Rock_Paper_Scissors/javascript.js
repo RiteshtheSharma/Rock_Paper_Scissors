@@ -76,7 +76,8 @@ class UserGameInterface {
   playOneTime(userChoice) {
     if (!UserGameInterface.#GAME_ALGO.getChoices_.includes(userChoice.toString()))
       return null;
-    if (UserGameInterface.#max_times_won_or_loose === UserGameInterface.#times_loose || UserGameInterface.#max_times_won_or_loose ===UserGameInterface.#times_won) return "No more chances";
+    if (UserGameInterface.#max_times_won_or_loose === UserGameInterface.#times_loose || UserGameInterface.#max_times_won_or_loose === UserGameInterface.#times_won) 
+    return "No more chances";
     let gameStatus, gameStatusMsg;
 
     UserGameInterface.#GAME_ALGO.DecideWinner(userChoice);
@@ -86,7 +87,7 @@ class UserGameInterface {
     else if (gameStatus === -1) UserGameInterface.#times_loose++;
     else UserGameInterface.#times_won++;
     UserGameInterface.#gameStatusArray.push(gameStatusMsg);
-    UserGameInterface.#max_times_won_or_loose--;
+
     return gameStatus;
   }
 
@@ -113,10 +114,79 @@ class UserGameInterface {
 //code which will integrate UserGameInterface class object to html and make it interactive interface of game 
 // IIFEs to run game: https://www.javascripttutorial.net/javascript-immediately-invoked-function-expression-iife/
 (() => {
-    
+  //Dom Elements 
   const VirtualGamingConsole = new UserGameInterface();
+  const RockBtn = document.querySelector('div.cv.ch #rock');
+  const PaperBtn = document.querySelector('div.cv.ch #paper');
+  const ScissorsBtn = document.querySelector('div.cv.ch #scissors');
+  const RestartBtn = document.querySelector('div.RestartBtn button');
+  const btnContainer = document.querySelector('div.cv.ch');
+  const resultContainer = document.querySelector('div.result');
+  const actionContainer = document.querySelector('div.actions');
+  let actionContainerPChild;
+  let ULElement = document.createElement('ul');
+  let resultContainerChild;
+
   VirtualGamingConsole.setMaxTimesWonOrLoose(5);
+
+  /* To remove undesired elements displayed duing playing game before reloading and bring the game in
+  initial statue after reloading */
+
+  addEventListener('load',(e)=>{
+
+    VirtualGamingConsole.setToInitialState();
+    VirtualGamingConsole.setMaxTimesWonOrLoose(5);
+    resultContainer.removeChild(resultContainerChild);
+    actionContainer.removeChild(ULElement);
+    actionContainer.removeChild(actionContainerPChild);
+    
+  })
+
+  // for 3 buttons rock, paper and scissors using their parent div element
+  btnContainer.addEventListener('click',(e)=>{
+    if(e.target !== btnContainer){
+      let response = VirtualGamingConsole.playOneTime(e.target.id);
+      console.log(response,e.target.id);
+      if(response==='No more chances') {RockBtn.disabled=ScissorsBtn.disabled=PaperBtn.disabled=true;
+      RestartBtn.disabled= false;
   
-  
+      resultContainerChild =  document.createTextNode(`Result : ${VirtualGamingConsole.Result()}`);
+      resultContainer.appendChild(resultContainerChild);
+
+      let ReportActions = VirtualGamingConsole.getDetailedGameReport.split('\n\n');
+
+      let LiElement,TextElement;
+      for(let IndividualAction of ReportActions){
+           LiElement = document.createElement('li');
+           TextElement = document.createTextNode(IndividualAction);
+
+           LiElement.appendChild(TextElement);
+           ULElement.appendChild(LiElement);
+      }
+
+      actionContainerPChild = document.createElement('p');
+      actionContainerPChild.appendChild(document.createTextNode('Bellow are the sequence of events happened during this session of game'))
+      actionContainer.appendChild(actionContainerPChild);
+      actionContainer.appendChild(ULElement);
+     
+
+      }
+      else{
+        alert(`Your Choice = ${e.target.id}`);
+      }
+     
+    }
+  })
+
+  RestartBtn.addEventListener('click',(e)=>{
+   
+    resultContainer.removeChild(resultContainerChild);
+    actionContainer.removeChild(ULElement);
+    actionContainer.removeChild(actionContainerPChild);
+    VirtualGamingConsole.setToInitialState();
+    VirtualGamingConsole.setMaxTimesWonOrLoose(5);
+    RockBtn.disabled=ScissorsBtn.disabled=PaperBtn.disabled=false;
+    RestartBtn.disabled= true;
+  })
  
 })();
