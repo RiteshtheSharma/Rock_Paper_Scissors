@@ -7,14 +7,14 @@
     <title>Document</title>
   </head>
   <body>
-    <header><h1>Famous Rock, Paper, Scissors Game</h1></header>
+    <header><h1>Rock, Paper & Scissors Game</h1></header>
     <main>
       <section>
-        <h2>
+        <h2 class="sectionHead">
           Please read below instructions carefully to understand how to play the
           game
         </h2>
-        <ul>
+        <ul  class="normalTextFont">
           <li>
             You need to press one of the 3 buttons i.e 'Rock', 'Paper' and
             'Scissors'
@@ -35,14 +35,19 @@
       </section>
 
       <div class="ch cv">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+        <button id="rock">🪨</button>
+        <button id="paper"> 📄</button>
+        <button id="scissors">✂️</button>
       </div>
-      <div class="RestartBtn"><button disabled>RestartBtn</button></div>
-      <div class="result"></div>
-      <div class="actions"></div>
+      <div class="RestartBtn"><button disabled></button></div>
+      <h2 class="result sectionHead"></h2>
+      <div class="actions normalTextFont"></div>
     </main>
+    <footer class="normalTextFont">
+      <p>Created by Ritesh Sharma</p>
+      <p> View source code at <a href="https://github.com/RiteshtheSharma/Rock_Paper_Scissors">github</a></p>
+      
+    </footer>
   </body>
   <script src="javascript.js"></script>
 </html>
