@@ -111,7 +111,37 @@ class UserGameInterface {
     } , times draw ${UserGameInterface.#times_draw}`;
   }
 }
+class Modal {
+  static #mainModalDom = document.querySelector("div.modal");
+  static #modalTextContainerDom = document.querySelector("div.modal div");
+  static #modalCloseDom = document.querySelector("div.close button");
+  static #bodyDom = document.querySelector('body');
+  static #modalScreen_LayerDom = document.querySelector('.screen-layer');
+  constructor() {
+    Modal.#modalCloseDom.onclick = () => {
+      this.removeModal();
+    };
+  }
+  // consider it as a private method
+  showModal(text) {
+    Modal.#modalTextContainerDom.innerText = text;
+    Modal.#mainModalDom.className ="modal";
+    Modal.#bodyDom.className="scrolling_disabled";
+    Modal.#modalScreen_LayerDom.className="screen-layer"; 
+  }
+  // consider it as a private method
+  removeModal() {
+    Modal.#mainModalDom.className ="modal inactive";
+    Modal.#modalScreen_LayerDom.className="screen-layer disable_layer";
+    Modal.#bodyDom.className="";
+   
+  }
 
+  Alert(text) {
+    this.showModal(text);
+    setTimeout(() => this.removeModal(), 2000);
+  }
+}
 //code which will integrate UserGameInterface class object to html and make it interactive interface of game
 // IIFEs to run game: https://www.javascripttutorial.net/javascript-immediately-invoked-function-expression-iife/
 (() => {
@@ -128,7 +158,10 @@ class UserGameInterface {
   let ULElement = document.createElement("ul");
   let resultContainerChild;
 
+  const PLayerOPtionDisplayer = new Modal();
+
   VirtualGamingConsole.setMaxTimesWonOrLoose(5);
+ 
 
   /* To remove undesired elements displayed duing playing game before reloading and bring the game in
   initial statue after reloading */
@@ -136,13 +169,14 @@ class UserGameInterface {
   addEventListener("load", (e) => {
     VirtualGamingConsole.setToInitialState();
     VirtualGamingConsole.setMaxTimesWonOrLoose(5);
-    if(resultContainer.hasChildNodes())
-    resultContainer.removeChild(resultContainerChild);
-    if(resultContainer.hasChildNodes())
-    {actionContainer.removeChild(ULElement);
-    actionContainer.removeChild(actionContainerPChild);}
+    if (resultContainer.hasChildNodes())
+      resultContainer.removeChild(resultContainerChild);
+    if (resultContainer.hasChildNodes()) {
+      actionContainer.removeChild(ULElement);
+      actionContainer.removeChild(actionContainerPChild);
+    }
     RestartBtn.disabled = true;
-    console.log(e)
+    console.log(e);
   });
 
   // for 3 buttons rock, paper and scissors using their parent div element
@@ -151,6 +185,7 @@ class UserGameInterface {
       let response = VirtualGamingConsole.playOneTime(e.target.id);
       console.log(response, e.target.id);
       if (response === "No more chances") {
+        PLayerOPtionDisplayer.Alert('The game is over');
         RockBtn.disabled = ScissorsBtn.disabled = PaperBtn.disabled = true;
         RestartBtn.disabled = false;
 
@@ -181,6 +216,7 @@ class UserGameInterface {
         actionContainer.appendChild(ULElement);
       } else {
         // alert(`Your Choice = ${e.target.id}`);
+        PLayerOPtionDisplayer.Alert(`${e.target.innerText} is your choice`);
       }
     }
   });
